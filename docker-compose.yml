@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mysql-glpi:
+    image: mysql
+    restart: always
+    volumes:
+      - dados:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: glpi
+      MYSQL_PASSWORD: 123123
+      MYSQL_DATABASE: glpi
+  debian11-glpi:
+    image: debian-glpi
+    restart: always
+    volumes:
+      - glpi:/var/www/html/glpi
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql-glpi
+
+volumes:
+  dados:
+    driver: local
+    driver_opts:
+      type: none
+      device: /banco_glpi
+      o: bind
+  glpi:
+    driver: local
+    driver_opts:
+      type: none
+      device: /app_glpi
+      o: bind
