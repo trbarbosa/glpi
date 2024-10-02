@@ -16,7 +16,7 @@ services:
     volumes:
       - glpi:/var/www/html/glpi
     ports:
-      - 8080:80
+      - 8000:80
     depends_on:
       - mysql-glpi
 
